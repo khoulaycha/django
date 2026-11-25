@@ -10,9 +10,13 @@ class Specialty(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    doctors = models.ManyToManyField(
-        "AccountApp.Doctor",
-    )
+    class Meta:
+        verbose_name_plural = "Specialties"
+        verbose_name = "Specialty"
+    def __str__(self):
+        return self.name
+    
+    
 
 class User(AbstractUser):
     pass
@@ -26,6 +30,9 @@ class Doctor(User):
         Specialty,
         related_name='doctors',
     )
+    class Meta:
+        verbose_name_plural = "Doctors"
+        verbose_name = "Doctor"
 
 number_validator = RegexValidator(r'^\d{8}$', message='le numero de telephone doit contenir exactement 8 chiffres.')
 def validate_date_of_birth(v):
@@ -38,6 +45,10 @@ class Patient(User):
     birth_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name_plural = "Patients"
+        verbose_name = "Patient"
 
 
 
